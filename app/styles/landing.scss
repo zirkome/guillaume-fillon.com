@@ -179,7 +179,7 @@ body {
     }
   }
 
-  $links: twitter dribbble github medium googleplus email;
+  $links: twitter linkedin github medium googleplus email;
   @each $link in $links {
     .#{$link}:after { background-image: url(../images/icon_#{$link}.svg); }
   }
