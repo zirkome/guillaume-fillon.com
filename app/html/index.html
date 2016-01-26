@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/styles/landing.css">
+{% endblock %}
+
+{% block js %}
+<script src="/scripts/landing.js"></script>
+{% endblock %}
+
+{% block page-body %}
+  <div class="top"></div>
+  <div class="content-container">
+    <div class="content">
+      <div class="avatar"></div>
+
+      <p>Hi, I’m Guillaume.</p>
+      <p>I’m a Software Engineer located in Europe.</p>
+      <p>I do Go, Docker and Android stuff like <a href="http://getswydd.xyz">Swydd</a>.</p>
+
+      <!-- icons thanks to https://github.com/shalinguyen/socialicious -->
+      <div class="icons">
+        <a rel="me" href="https://twitter.com/zirkome" title="Twitter" class="twitter"></a>
+        <a rel="me" href="https://plus.google.com/+GuillaumeFillonDev/posts" title="Google+" class="googleplus"></a>
+        <a rel="me" href="https://medium.com/@zirkome" title="Medium" class="medium"></a>
+        <a rel="me" href="https://github.com/kokaz" title="GitHub" class="github"></a>
+        <a rel="me" href="" title="Email" class="email obfuscated" data-email="contact guillaume-fillon com"></a>
+      </div>
+    </div>
+  </div>
+  <div class="bottom"></div>
+{% endblock %}
