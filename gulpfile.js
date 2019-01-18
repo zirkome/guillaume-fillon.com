@@ -59,6 +59,13 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
+// Clean Output Directory
+gulp.task('clean', function(done) {
+  del(['.tmp', 'dist']);
+  $.cache.clearAll();
+  done();
+});
+
 // Lint JavaScript
 gulp.task('js', function() {
   var streams = [];
@@ -256,14 +263,11 @@ gulp.task('html', function () {
     .pipe($.size({title: 'html'}));
 });
 
-// Clean Output Directory
-gulp.task('clean', function() {
-  del(['.tmp', 'dist']);
-  $.cache.clearAll();
-});
+// Build Production Files, the Default Task
+gulp.task('default', gulp.series('clean', gulp.parallel('styles','js', 'bower', 'html', 'media', 'fonts', 'lib', 'copy')));
 
 // Watch Files For Changes & Reload
-gulp.task('serve', ['styles', 'bower', 'html'], function () {
+gulp.task('serve', gulp.series(gulp.parallel('styles', 'bower', 'html'), function () {
   browserSync({
     notify: false,
     // Run as an https by uncommenting 'https: true'
@@ -282,10 +286,10 @@ gulp.task('serve', ['styles', 'bower', 'html'], function () {
   gulp.watch(['app/media/**/*'], reload);
   gulp.watch(['app/images/**/*'], reload);
   gulp.watch(['app/templates/**/*'], reload);
-});
+}));
 
 // Build and serve the output from the dist build
-gulp.task('serve:dist', ['default'], function () {
+gulp.task('serve:dist', gulp.series('default', function () {
   browserSync({
     notify: false,
     // Run as an https by uncommenting 'https: true'
@@ -294,14 +298,7 @@ gulp.task('serve:dist', ['default'], function () {
     // https: true,
     server: 'dist'
   });
-});
-
-// Build Production Files, the Default Task
-gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles',
-      ['js', 'bower', 'html', 'media', 'fonts', 'lib', 'copy'],
-      cb);
-});
+}));
 
 // Deploy to GitHub pages
 gulp.task('deploy', function() {
